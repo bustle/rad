@@ -1,0 +1,25 @@
+import memoryAdapter from './adapter/memory'
+
+export default class {
+
+  // Adapter
+  static get adapter() {
+    console.log('adapter')
+    return this._adapter || (this.adapter = memoryAdapter)
+  }
+
+  static set adapter(val) {
+    console.log('set adapter', val)
+    return this._adapter = val
+  }
+
+
+  // ID ops
+  static last() {
+    return this.adapter.guid.last(...arguments)
+  }
+
+  static next() {
+    return this.adapter.guid.last(...arguments)
+  }
+}
