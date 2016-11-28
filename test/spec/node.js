@@ -1,27 +1,28 @@
-import { describe } from 'ava-spec'
-import Node from '../../src/node'
+import { test, describe } from 'ava-spec'
+import * as fixtures from '../fixtures'
+import { Node } from '../../src/node'
 
-describe('Node', () => {
-  describe('#create', it => {
-  })
+const {
+  generateGraph,
+  generateNodeType
+} = fixtures
 
-  describe('#find', it => {
-    it.todo('find')
-  })
+test.beforeEach(t => {
+  t.context.graph = generateGraph()
+})
 
-  describe('#save', it => {
-    it.todo('save')
-  })
-
-  describe('#delete', it => {
-    it.todo('delete')
-  })
-
-  describe('#connect', it => {
-    it.todo('connects two nodes with an edge')
-  })
-
-  describe('#disconnect', it => {
-    it.todo('disconnects two nodes with an edge')
+describe('Node', subject => {
+  subject.describe('constructor', it => {
+    it('sets initialization properties', t => {
+      const type = generateNodeType()
+      const attributes = {
+        name: 'Tyler Love',
+        age: 30
+      }
+      const node = new Node({ type, attributes })
+      t.is(node.type, type)
+      t.is(node.attributes, attributes)
+    })
   })
 })
+

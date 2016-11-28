@@ -1,7 +1,15 @@
 export class EdgeType {
-  constructor(name) {
-    this._name = name
+  constructor(label) {
+    this._label = label
   }
 
-  get name() { return this._name }
+  get label() { return this._label }
+}
+
+export class Edge {
+  constructor({ type }) {
+    this._type = type
+  }
+
+  get type() { return this._type }
 }
