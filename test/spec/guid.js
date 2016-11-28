@@ -1,5 +1,5 @@
 import { describe } from 'ava-spec'
-import Guid from '../../src/guid'
+import Guid from '../../src/delegate/guid'
 
 describe('Guid', () => {
   describe('#last', it => {

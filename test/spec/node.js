@@ -3,11 +3,6 @@ import Node from '../../src/node'
 
 describe('Node', () => {
   describe('#create', it => {
-    it('returns a node', test => {
-    })
-
-    it('has an id', test => {
-    })
   })
 
   describe('#find', it => {
