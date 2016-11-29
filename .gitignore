@@ -1,4 +1,22 @@
-node_modules/*
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# config
+/config/*.env
+
+# compiled output
+/dist
+/fastboot-dist
+/tmp
+
+# dependencies
+/node_modules
+/bower_components
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
 npm-debug.log
-lib/
-tmp/
+testem.log
+.DS_Store

@@ -1,22 +1,21 @@
 import Graph from '../../src/graph'
 
-export const GRAPH_NAME = 'BustleTestGraph'
-export const NODE_TYPE_NAME = 'User'
-export const EDGE_TYPE_LABEL = 'UserPosts'
+export const GRAPH_NAME = 'TestGraph'
+export const NODE_TYPE_NAME = 'TestNodeType'
+export const EDGE_TYPE_LABEL = 'TestEdgeType'
 
-export function generateGraph() {
-  return new Graph(GRAPH_NAME)
+export function generateGraph({name=GRAPH_NAME}={}) {
+  return new Graph(name)
 }
 
-export function generateNodeType() {
+export function generateNodeType({name=NODE_TYPE_NAME}={}) {
   const graph = generateGraph()
-  return graph.node(NODE_TYPE_NAME)
+  return graph.node(name)
 }
 
-export function generateEdgeType() {
+export function generateEdgeType({fromType='From', toType='To', label=EDGE_TYPE_LABEL}) {
   const graph = generateGraph()
-  const from = graph.node('From')
-  const to = graph.node('To')
-  const label = EDGE_TYPE_LABEL
+  const from = graph.node(fromType)
+  const to = graph.node(toType)
   return graph.edge({ from, to, label })
 }
