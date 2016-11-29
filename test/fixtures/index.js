@@ -1,6 +1,6 @@
 import Graph from '../../src/graph'
 
-export const GRAPH_NAME = 'TestGraph'
+export const GRAPH_NAME = 'BustleTestGraph'
 export const NODE_TYPE_NAME = 'User'
 export const EDGE_TYPE_LABEL = 'UserPosts'
 
@@ -15,5 +15,8 @@ export function generateNodeType() {
 
 export function generateEdgeType() {
   const graph = generateGraph()
-  return graph.edge(EDGE_TYPE_LABEL)
+  const from = graph.node('From')
+  const to = graph.node('To')
+  const label = EDGE_TYPE_LABEL
+  return graph.edge({ from, to, label })
 }

@@ -6,15 +6,14 @@ import { EdgeType } from '../../src/edge'
 const {
   GRAPH_NAME,
   NODE_TYPE_NAME,
-  EDGE_TYPE_NAME,
-  generateGraph,
-  generateNodeType
+  EDGE_TYPE_LABEL,
+  generateGraph
 } = fixtures
 
 test.beforeEach(t => {
   t.context.graphName = GRAPH_NAME
   t.context.nodeTypeName = NODE_TYPE_NAME
-  t.context.edgeTypeName = EDGE_TYPE_NAME
+  t.context.edgeTypeLabel = EDGE_TYPE_LABEL
   t.context.graph = generateGraph()
 })
 
@@ -22,7 +21,7 @@ describe('Graph', subject => {
   subject.describe('constructor', it => {
     it('sets initialization properties', t => {
       const graph = t.context.graph
-      t.is(graph.name, GRAPH_NAME)
+      t.is(graph.name, t.context.graphName)
     })
   })
 
@@ -41,17 +40,29 @@ describe('Graph', subject => {
   })
 
   subject.describe('.edge', it => {
+    // console.log('it', it)
     it('returns an instance of EdgeType', t => {
-      const {graph, edgeTypeName} = t.context
-      const edgeType = graph.edge(edgeTypeName)
+      const {graph, edgeTypeLabel: label} = t.context
+      const from = graph.node('From')
+      const to = graph.node('To')
+      const edgeType = graph.edge({
+        from, to, label
+      })
       t.true(edgeType instanceof EdgeType)
     })
 
     it('adds the EdgeType to the register', t => {
-      const {graph, edgeTypeName} = t.context
-      const edgeType = graph.edge(edgeTypeName)
-      t.is(graph.edgeTypes[EDGE_TYPE_NAME], edgeType)
+      const {graph, edgeTypeLabel: label} = t.context
+      const from = graph.node('From')
+      const to = graph.node('To')
+      const edgeType = graph.edge({
+        from, to, label
+      })
+      t.is(graph.edgeTypes[label], edgeType)
     })
+  })
+
+  subject.describe('.hasMany', it => {
   })
 })
 
@@ -61,8 +72,8 @@ describe('Graph', subject => {
  * const Post = graph.node('Post')
  * const User = graph.node('Post')
  *
- * Post.hasMany('authors', User)
- * Post.hasOne('owner', User)
+ * Post.hasMany('authors', { as: User })
+ * Post.hasOne('owner', { as: User })
  *
  * const user = await User.create({ attributes })
  * const post = await Post.create({ attributes })

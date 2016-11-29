@@ -18,9 +18,9 @@ export default class Graph {
     return nodeType
   }
 
-  edge(name) {
-    const edgeType = new EdgeType(name)
-    this._edgeTypes[name] = edgeType
+  edge({from, to, label}) {
+    const edgeType = new EdgeType({from, to, label})
+    this._edgeTypes[label] = edgeType
     return edgeType
   }
 }

@@ -1,3 +1,5 @@
+import { Edge } from '../edge'
+
 export class Node {
   constructor({ type, attributes }) {
     this._type = type
@@ -15,11 +17,9 @@ export class NodeType {
 
   get name() { return this._name }
 
-  hasMany(label, type=null) {
-
-  }
-
-  async create(attributes) {
-    return new Node(this, attributes)
+  hasMany(name, { as: to }) {
+    const from = this
+    const label = `${from.name}${to.name}s`
+    return new EdgeType({from, to, label})
   }
 }

@@ -15,7 +15,14 @@ test.beforeEach(t => {
 describe('NodeType', subject => {
   subject.describe('constructor', it => {
     it('sets initialization properties', t => {
-      t.is(t.context.nodeType.name, t.context.nodeTypeName)
+      const {nodeType, nodeTypeName: name} = t.context
+      t.is(nodeType.name, name)
+    })
+  })
+
+  subject.describe('.hasMany', it => {
+    it('creates an EdgeType', t => {
+      const {nodeType} = t.context
     })
   })
 })
