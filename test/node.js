@@ -10,13 +10,13 @@ describe('Node', () => {
   describe('constructor', () => {
     let context
     beforeEach(() => {
-      context = {}
-      context.type = generateNodeType()
-      context.attributes = {
+      const type = generateNodeType()
+      const attributes = {
         name: 'Tyler Love',
         age: 30
       }
-      context.node = new Node(context.attributes)
+      const node = new Node({type, attributes})
+      context = {node,type,attributes}
     })
 
     it('sets initialization properties', () => {

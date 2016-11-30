@@ -1,2 +1,2 @@
-// describe('Edge', () => {
-// })
+describe('Edge', () => {
+})

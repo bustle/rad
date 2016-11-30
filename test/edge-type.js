@@ -5,6 +5,11 @@ const {
 } = fixtures
 
 describe('EdgeType', () => {
+  let context
+  beforeEach(() => {
+    context = {}
+  })
+
   describe('constructor', () => {
     let context
     beforeEach(() => {
@@ -15,11 +20,10 @@ describe('EdgeType', () => {
     })
 
     it('sets initialization properties', () => {
-      debugger
       const {edgeType,label} = context
       expect(edgeType.label).to.equal(label)
-      expect(edgeType.from).to.be.instanceof(NodeType)
-      expect(edgeType.to).to.be.instanceof(NodeType)
+      expect(edgeType.from).to.be.an.instanceof(NodeType)
+      expect(edgeType.to).to.be.an.instanceof(NodeType)
     })
   })
 })
