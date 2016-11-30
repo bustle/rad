@@ -5,13 +5,6 @@ const {
   generateGraph
 } = fixtures
 
-// test.beforeEach(t => {
-//   t.context.graphName = GRAPH_NAME
-//   t.context.nodeTypeName = NODE_TYPE_NAME
-//   t.context.edgeTypeLabel = EDGE_TYPE_LABEL
-//   t.context.graph = generateGraph()
-// })
-
 describe('Graph', () => {
   let context
   beforeEach(() => {

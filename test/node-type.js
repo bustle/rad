@@ -19,9 +19,5 @@ describe('NodeType', () => {
     })
   })
 
-  describe('.hasMany', () => {
-    it('creates an EdgeType', () => {
-      const {nodeType} = context
-    })
-  })
+  it('.hasMany')
 })
