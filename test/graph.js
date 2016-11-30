@@ -36,7 +36,8 @@ describe('Graph', () => {
 
     it('adds the NodeType to the register', () => {
       const {graph, nodeTypeName} = context
-      const nodeType = graph.node(nodeTypeName)
+      const nodeType = graph.node({name: nodeTypeName})
+      debugger
       expect(graph.nodeTypes[nodeTypeName]).to.equal(nodeType)
     })
   })

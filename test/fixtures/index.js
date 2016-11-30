@@ -5,7 +5,7 @@ export const NODE_TYPE_NAME = 'TestNodeType'
 export const EDGE_TYPE_LABEL = 'TestEdgeType'
 
 export function generateGraph({name=GRAPH_NAME}={}) {
-  return new Graph(name)
+  return new Graph({name})
 }
 
 export function generateNodeType({graph=generateGraph(), name=NODE_TYPE_NAME}={}) {

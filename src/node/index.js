@@ -1,5 +1,5 @@
 export default class Node {
-  constructor({ type, attributes }) {
+  constructor({ type, attributes, adapter }) {
     this._id = null
     this._type = type
     this._attributes = attributes
@@ -11,7 +11,7 @@ export default class Node {
   get adapter() { return this.type.graph.adapter }
 
   async save() {
-    return this.adapter.Node.save()
+    return this.adapter.node.save()
   }
 }
 

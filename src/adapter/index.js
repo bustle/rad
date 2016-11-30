@@ -1,13 +1,19 @@
-export default class Adapter {
-  constructor(name, { node, guid }) {
+export class AdapterBase {
+  constructor({name='Base', node=NodeDelegate, edge=EdgeDelegate}={}) {
     this._name = name
-    this._guid = guid
     this._node = node
-    // this.edge = edge
+    this._edge = edge
   }
 
   get name() { return this._name }
-  get guid() { return this._guid }
   get node() { return this._node }
   get edge() { return this._edge }
+}
+
+class NodeDelegate {
+  static async save() { return }
+}
+
+class EdgeDelegate {
+  static async save() { return }
 }
