@@ -1,9 +1,6 @@
+import { generateGraph } from './fixtures'
 import { NodeType } from '../src/node'
 import { EdgeType } from '../src/edge'
-
-const {
-  generateGraph
-} = fixtures
 
 describe('Graph', () => {
   let context

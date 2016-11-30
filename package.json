@@ -35,7 +35,7 @@
     ]
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-register --require test/initializers/mocha --require test/initializers/fixtures",
+    "test": "mocha --compilers js:babel-register --require test/initializers/mocha",
     "compile": "babel -d lib/ src/",
     "lint": "standard",
     "prepublish": "npm run compile"

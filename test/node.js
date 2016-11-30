@@ -1,10 +1,5 @@
-console.log('Node')
+import { generateGraph, generateNodeType } from './fixtures'
 import { Node } from '../src/node'
-
-const {
-  generateGraph,
-  generateNodeType
-} = fixtures
 
 describe('Node', () => {
   describe('constructor', () => {

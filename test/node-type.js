@@ -1,8 +1,5 @@
+import { generateNodeType } from './fixtures'
 import { NodeType } from '../src/node'
-
-const {
-  generateNodeType
-} = fixtures
 
 describe('NodeType', () => {
   let context

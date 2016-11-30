@@ -1,3 +1,4 @@
+import * as fixtures from './fixtures'
 import { NodeType } from '../src/node'
 
 const {
