@@ -11,9 +11,22 @@ export class AdapterBase {
 }
 
 class NodeDelegate {
-  static async save() { return }
+  static async save(node) {}
+  static async create(node) {}
+  static async update(node) {}
+  static async put(node) {}
+  static async putByKey(node) {}
+  static async get(node) {}
+  static async getByKey(node) {}
+  static async all(node) {}
+  static async count(node) {}
+  static async destroy(node) {}
 }
 
 class EdgeDelegate {
-  static async save() { return }
+  static async get(edge) {}
+  static async range(edge) {}
+  static async count(edge) {}
+  static async set(edge) {}
+  static async destroy(edge) {}
 }

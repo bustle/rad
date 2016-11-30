@@ -3,18 +3,19 @@ import { generateGraph, generateNodeType } from './fixtures'
 import Node from '../src/node'
 
 describe('Node', () => {
-  describe('.constructor', () => {
-    let context
-    beforeEach(() => {
-      const type = generateNodeType()
-      const attributes = {
-        name: 'Tyler Love',
-        age: 30
-      }
-      const node = new Node({type, attributes})
-      context = {node,type,attributes}
-    })
+  let context
+  beforeEach(() => {
+    context = {}
+    const type = generateNodeType()
+    const attributes = {
+      name: 'Tyler Love',
+      age: 30
+    }
+    const node = new Node({type, attributes})
+    context = {node,type,attributes}
+  })
 
+  describe('.constructor', () => {
     it('sets initialization properties', () => {
       const {node,type,attributes} = context
       expect(node.type).to.equal(type)
@@ -33,23 +34,78 @@ describe('Node', () => {
         expect(node.isSaved).to.be.false
       })
     })
+  })
 
+  describe('operations', () => {
     describe('.save', () => {
-      it('returns an async function. aka promise', () => {
+      it('returns a promise', () => {
         const {node} = context
         expect(node.save()).to.be.an.instanceof(Promise)
       })
     })
 
-    it('.create')
-    it('.update')
-    it('.put')
-    it('.putByKey')
-    it('.get')
-    it('.getByKey')
-    it('.all')
-    it('.count')
-    it('.destroy')
+    describe('.create', () => {
+      it('returns a promise', () => {
+        const {node} = context
+        expect(node.create()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('.update', () => {
+      it('returns a promise', () => {
+        const {node} = context
+        expect(node.update()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('.put', () => {
+      it('returns a promise', () => {
+        const {node} = context
+        expect(node.put()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('.putByKey', () => {
+      it('returns a promise', () => {
+        const {node} = context
+        expect(node.putByKey()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('.get', () => {
+      it('returns a promise', () => {
+        const {node} = context
+        expect(node.get()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('.getByKey', () => {
+      it('returns a promise', () => {
+        const {node} = context
+        expect(node.getByKey()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('.all', () => {
+      it('returns a promise', () => {
+        const {node} = context
+        expect(node.all()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('.count', () => {
+      it('returns a promise', () => {
+        const {node} = context
+        expect(node.count()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('.destroy', () => {
+      it('returns a promise', () => {
+        const {node} = context
+        expect(node.destroy()).to.be.an.instanceof(Promise)
+      })
+    })
   })
 })
 

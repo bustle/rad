@@ -12,9 +12,9 @@ export function generateNodeType({graph=generateGraph(), name=NODE_TYPE_NAME}={}
   return graph.node({name})
 }
 
-export function generateEdgeType({fromType='From', toType='To', label=EDGE_TYPE_LABEL}) {
+export function generateEdgeType({fromType='From', toType='To', label=EDGE_TYPE_LABEL}={}) {
   const graph = generateGraph()
-  const from = graph.node(fromType)
-  const to = graph.node(toType)
+  const from = graph.node({name: fromType})
+  const to = graph.node({name: toType})
   return graph.edge({ from, to, label })
 }
