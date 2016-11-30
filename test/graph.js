@@ -1,6 +1,6 @@
 import { generateGraph } from './fixtures'
-import { NodeType } from '../src/node'
-import { EdgeType } from '../src/edge'
+import NodeType from '../src/node-type'
+import EdgeType from '../src/edge-type'
 
 describe('Graph', () => {
   let context
@@ -8,7 +8,7 @@ describe('Graph', () => {
     context = {}
   })
 
-  describe('constructor', () => {
+  describe('.constructor', () => {
     beforeEach(() => {
       const name = 'TestGraph'
       const graph = generateGraph({name})
@@ -65,9 +65,6 @@ describe('Graph', () => {
       })
       expect(graph.edgeTypes[label]).to.equal(edgeType)
     })
-  })
-
-  describe('.hasMany', () => {
   })
 })
 

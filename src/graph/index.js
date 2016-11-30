@@ -1,5 +1,5 @@
-import { NodeType } from '../node'
-import { EdgeType } from '../edge'
+import NodeType from '../node-type'
+import EdgeType from '../edge-type'
 
 export default class Graph {
   constructor(name) {
@@ -12,8 +12,9 @@ export default class Graph {
   get nodeTypes() { return this._nodeTypes }
   get edgeTypes() { return this._edgeTypes }
 
-  node(name) {
-    const nodeType = new NodeType(name)
+  node({name, graph=this}) {
+    debugger
+    const nodeType = new NodeType({graph, name})
     this._nodeTypes[name] = nodeType
     return nodeType
   }

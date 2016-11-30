@@ -1,5 +1,5 @@
 import * as fixtures from './fixtures'
-import { NodeType } from '../src/node'
+import NodeType from '../src/node-type'
 
 const {
   generateEdgeType
@@ -11,7 +11,7 @@ describe('EdgeType', () => {
     context = {}
   })
 
-  describe('constructor', () => {
+  describe('.constructor', () => {
     let context
     beforeEach(() => {
       const label = 'TestEdgeType'
@@ -27,5 +27,9 @@ describe('EdgeType', () => {
       expect(edgeType.to).to.be.an.instanceof(NodeType)
     })
   })
+
+  it('.from')
+  it('.to')
+  it('.multiplicity')
 })
 

@@ -1,25 +1,17 @@
-import { Edge } from '../edge'
-
-export class Node {
+export default class Node {
   constructor({ type, attributes }) {
+    this._id = null
     this._type = type
     this._attributes = attributes
   }
 
+  get isSaved() { return !!this._id }
   get type() { return this._type }
   get attributes() { return this._attributes }
-}
+  get adapter() { return this.type.graph.adapter }
 
-export class NodeType {
-  constructor(name) {
-    this._name = name
-  }
-
-  get name() { return this._name }
-
-  hasMany(name, { as: to }) {
-    const from = this
-    const label = `${from.name}${to.name}s`
-    return new EdgeType({from, to, label})
+  async save() {
+    return this.adapter.Node.save()
   }
 }
+

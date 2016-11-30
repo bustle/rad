@@ -8,9 +8,8 @@ export function generateGraph({name=GRAPH_NAME}={}) {
   return new Graph(name)
 }
 
-export function generateNodeType({name=NODE_TYPE_NAME}={}) {
-  const graph = generateGraph()
-  return graph.node(name)
+export function generateNodeType({graph=generateGraph(), name=NODE_TYPE_NAME}={}) {
+  return graph.node({name})
 }
 
 export function generateEdgeType({fromType='From', toType='To', label=EDGE_TYPE_LABEL}) {
