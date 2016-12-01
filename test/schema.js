@@ -30,7 +30,6 @@ describe('Schema', () => {
       const fromType = schema.node('User')
       const toType = schema.node('Post')
       const label = 'UserPost'
-      debugger
       context.fromType = fromType
       context.toType = toType
       context.label = label
