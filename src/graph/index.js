@@ -1,29 +1,43 @@
+import Schema from '../schema'
 import NodeType from '../node-type'
 import EdgeType from '../edge-type'
 import { AdapterBase } from '../adapter'
 
 export default class Graph {
-  constructor({ name, adapter=new AdapterBase() }) {
+  constructor(name, { schema=new Schema(this), adapter=new AdapterBase() }={}) {
     this._name = name
+    this._schema = schema
     this._adapter = adapter
-    this._nodeTypes = []
-    this._edgeTypes = []
   }
 
   get name() { return this._name }
   get adapter() { return this._adapter }
-  get nodeTypes() { return this._nodeTypes }
-  get edgeTypes() { return this._edgeTypes }
+  get nodeTypes() { return this._schema.nodeTypes }
+  get edgeTypes() { return this._schema.edgeTypes }
 
-  node({name, graph=this}) {
-    const nodeType = new NodeType({graph, name})
-    this._nodeTypes[name] = nodeType
-    return nodeType
+  schema(definition) {
+    return definition(this._schema)
   }
 
-  edge({from, to, label, graph=this}) {
-    const edgeType = new EdgeType({graph, from, to, label})
-    this._edgeTypes[label] = edgeType
-    return edgeType
+  defineNode(name, definition=()=>{}) {
+    return this._schema.node(name, definition)
+  }
+
+  defineEdge(fromType, toType, label) {
+    return this._schema.edge(fromType, toType, label)
   }
 }
+
+// const graph = new Graph('Bustle')
+//
+// graph.schema(define => {
+//
+//   define.node('User', user => {
+//     user.hasMany('Post')
+//   })
+//
+//   define.node('Post', post => {
+//     post.hasOne('User')
+//   })
+//
+// })

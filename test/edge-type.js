@@ -15,9 +15,8 @@ describe('EdgeType', () => {
     let context
     beforeEach(() => {
       const label = 'TestEdgeType'
-      context = {}
-      context.label = label
-      context.edgeType = generateEdgeType({label})
+      const edgeType = generateEdgeType({label})
+      context = {label,edgeType}
     })
 
     it('sets initialization properties', () => {

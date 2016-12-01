@@ -21,7 +21,7 @@ describe('Graph', () => {
     })
   })
 
-  describe('.node', () => {
+  describe('.defineNode', () => {
     beforeEach(() => {
       const nodeTypeName = 'TestNodeType'
       const graph = generateGraph()
@@ -30,15 +30,8 @@ describe('Graph', () => {
 
     it('returns an instance of NodeType', () => {
       const {graph, nodeTypeName} = context
-      const nodeType = graph.node(nodeTypeName)
+      const nodeType = graph.defineNode(nodeTypeName)
       expect(nodeType).to.be.an.instanceof(NodeType)
-    })
-
-    it('adds the NodeType to the register', () => {
-      const {graph, nodeTypeName} = context
-      const nodeType = graph.node({name: nodeTypeName})
-      debugger
-      expect(graph.nodeTypes[nodeTypeName]).to.equal(nodeType)
     })
   })
 
@@ -46,25 +39,15 @@ describe('Graph', () => {
     beforeEach(() => {
       const graph = generateGraph()
       const label = 'TestEdge'
-      const from = graph.node('From')
-      const to = graph.node('To')
-      context = {graph, from, to, label}
+      const fromType = 'User'
+      const toType = 'Post'
+      context = {graph, fromType, toType, label}
     })
 
     it('returns an instance of EdgeType', () => {
-      const {graph, from, to, label} = context
-      const edgeType = graph.edge({
-        from, to, label
-      })
+      const {graph, fromType, toType, label} = context
+      const edgeType = graph.defineEdge(fromType, toType, label)
       expect(edgeType).to.be.an.instanceof(EdgeType)
-    })
-
-    it('adds the EdgeType to the register', () => {
-      const {graph, from, to, label} = context
-      const edgeType = graph.edge({
-        from, to, label
-      })
-      expect(graph.edgeTypes[label]).to.equal(edgeType)
     })
   })
 })
