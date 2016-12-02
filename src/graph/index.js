@@ -33,7 +33,7 @@ export default class Graph {
 // graph.schema(define => {
 //
 //   define.node('User', user => {
-//     user.hasMany('Post')
+//     user.hasOne('Post')
 //   })
 //
 //   define.node('Post', post => {

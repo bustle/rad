@@ -11,7 +11,7 @@ describe('Node', () => {
       name: 'Tyler Love',
       age: 30
     }
-    const node = new Node({type, attributes})
+    const node = new Node(type, attributes)
     context = {node,type,attributes}
   })
 
@@ -23,7 +23,7 @@ describe('Node', () => {
     })
 
     describe('.isSaved', () => {
-      it('is false unless id is present', () => {
+      it('is false before a save', () => {
         const {node} = context
         expect(node.isSaved).to.be.false
       })
@@ -65,24 +65,10 @@ describe('Node', () => {
       })
     })
 
-    describe('.putByKey', () => {
-      it('returns a promise', () => {
-        const {node} = context
-        expect(node.putByKey()).to.be.an.instanceof(Promise)
-      })
-    })
-
     describe('.get', () => {
       it('returns a promise', () => {
         const {node} = context
         expect(node.get()).to.be.an.instanceof(Promise)
-      })
-    })
-
-    describe('.getByKey', () => {
-      it('returns a promise', () => {
-        const {node} = context
-        expect(node.getByKey()).to.be.an.instanceof(Promise)
       })
     })
 

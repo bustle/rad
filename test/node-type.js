@@ -1,22 +1,35 @@
 import { generateNodeType } from './fixtures'
+import EdgeType from '../src/edge-type'
 
 describe('NodeType', () => {
   let context
   beforeEach(() => {
-    const name = 'TestNodeType'
-    const nodeType = generateNodeType({name})
-    context = {name,nodeType}
+    const label = 'TestNodeType'
+    const nodeType = generateNodeType({label})
+    context = {label,nodeType}
   })
 
   describe('.constructor', () => {
     it('sets initialization properties', () => {
-      const {nodeType,name} = context
-      expect(nodeType.name).to.equal(name)
+      const {nodeType,label} = context
+      expect(nodeType.label).to.equal(label)
     })
   })
 
   it('.manyToMany')
   it('.oneToMany')
   it('.manyToOne')
-  it('.oneToOne')
+
+  describe('hasOne', () => {
+    beforeEach(() => {
+      const {nodeType} = context
+      const edgeType = nodeType.hasOne('Thing')
+      context.edgeType = edgeType
+    })
+
+    it('returns an EdgeType', () => {
+      const {nodeType, edgeType} = context
+      expect(edgeType).to.be.an.instanceof(EdgeType)
+    })
+  })
 })

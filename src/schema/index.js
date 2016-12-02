@@ -12,11 +12,11 @@ export default class Schema {
   get nodeTypes() { return this._nodeTypes }
   get edgeTypes() { return this._edgeTypes }
 
-  node(name, definition=()=>{}) {
+  node(label, definition=()=>{}) {
     const graph = this.graph
-    const nodeType = new NodeType(graph, name, definition)
+    const nodeType = new NodeType(graph, label, definition)
     definition(nodeType)
-    this.nodeTypes[nodeType.name] = nodeType
+    this.nodeTypes[nodeType.label] = nodeType
     return nodeType
   }
 

@@ -1,18 +1,16 @@
-import EdgeType from '../edge-type'
-
 export default class NodeType {
-  constructor(graph, name) {
+  constructor(graph, label) {
     this._graph = graph
-    this._name = name
+    this._label = label
   }
 
   get graph() { return this._graph }
-  get name() { return this._name }
+  get label() { return this._label }
 
   hasOne(toType) {
     const graph = this.graph
-    const fromType = this.name
-    const label = `${fromType}${toType}`
+    const fromType = this.label
+    const label = `${fromType}:HAS_ONE:${toType}`
     return graph.defineEdge(fromType, toType, label)
   }
 }
