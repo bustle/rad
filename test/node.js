@@ -12,12 +12,12 @@ describe('Node', () => {
       age: 30
     }
     const node = new Node(type, attributes)
-    context = {node,type,attributes}
+    context = {node, type, attributes}
   })
 
   describe('.constructor', () => {
     it('sets initialization properties', () => {
-      const {node,type,attributes} = context
+      const {node, type, attributes} = context
       expect(node.type).to.equal(type)
       expect(node.attributes).to.equal(attributes)
     })

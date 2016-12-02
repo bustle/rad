@@ -16,11 +16,11 @@ describe('EdgeType', () => {
     beforeEach(() => {
       const label = 'TestEdgeType'
       const edgeType = generateEdgeType({label})
-      context = {label,edgeType}
+      context = {label, edgeType}
     })
 
     it('sets initialization properties', () => {
-      const {edgeType,label} = context
+      const {edgeType, label} = context
       expect(edgeType.label).to.equal(label)
       expect(edgeType.from).to.be.an.instanceof(NodeType)
       expect(edgeType.to).to.be.an.instanceof(NodeType)

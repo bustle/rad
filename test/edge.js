@@ -7,11 +7,10 @@ describe('Edge', () => {
   beforeEach(() => {
     const type = generateEdgeType()
     const edge = new Edge({type})
-    context = {type,edge}
+    context = {type, edge}
   })
 
   describe('operations', () => {
-
     describe('.get', () => {
       it('returns a promise', () => {
         const {edge} = context
@@ -46,6 +45,5 @@ describe('Edge', () => {
         expect(edge.destroy()).to.be.an.instanceof(Promise)
       })
     })
-
   })
 })

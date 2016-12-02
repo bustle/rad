@@ -1,21 +1,20 @@
 export default class {
 
   // Adapter
-  static get adapter() {
+  static get adapter () {
     return this._adapter || (this.adapter = require('./../adapter/memory'))
   }
 
-  static set adapter(val) {
+  static set adapter (val) {
     return this._adapter = val
   }
 
-
   // ID ops
-  static last() {
+  static last () {
     return this.adapter.guid.last(...arguments)
   }
 
-  static next() {
+  static next () {
     return this.adapter.guid.next(...arguments)
   }
 }

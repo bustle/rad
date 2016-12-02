@@ -11,7 +11,7 @@ describe('MemoryAdapter', () => {
       define.node('Post')
       define.node('User')
     })
-    context = {adapter,graph}
+    context = {adapter, graph}
   })
 
   describe('#save', () => {

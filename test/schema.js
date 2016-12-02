@@ -1,14 +1,13 @@
 import { generateGraph } from './fixtures'
 import Schema from '../src/schema'
 
-
 describe('Schema', () => {
   let context
   beforeEach(() => {
     context = {}
     const graph = generateGraph({name: 'TestGraph'})
     const schema = new Schema(graph)
-    context = {graph,schema}
+    context = {graph, schema}
   })
 
   describe('.node', () => {

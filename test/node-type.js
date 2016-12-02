@@ -6,12 +6,12 @@ describe('NodeType', () => {
   beforeEach(() => {
     const label = 'TestNodeType'
     const nodeType = generateNodeType({label})
-    context = {label,nodeType}
+    context = {label, nodeType}
   })
 
   describe('.constructor', () => {
     it('sets initialization properties', () => {
-      const {nodeType,label} = context
+      const {nodeType, label} = context
       expect(nodeType.label).to.equal(label)
     })
   })

@@ -1,39 +1,37 @@
-import Promise from  'bluebird'
+import Promise from 'bluebird'
 
 export default class {
 
   // Adapter
-  static get adapter() {
+  static get adapter () {
     return this._adapter || (this.adapter = require('./adapter/memory'))
   }
 
-  static set adapter(val) { return this._adapter = val }
-
+  static set adapter (val) { return this._adapter = val }
 
   // Crud
-  static create() {
+  static create () {
     return this.adapter.node.create(...arguments)
   }
 
-  static find() {
+  static find () {
     return this.adapter.node.find(...arguments)
   }
 
-  static save() {
+  static save () {
     return this.adapter.node.save(...arguments)
   }
 
-  static delete() {
+  static delete () {
     return this.adapter.node.delete(...arguments)
   }
 
-
   // Edges
-  static connect() {
+  static connect () {
     return Promise.reject()
   }
 
-  static disconnect() {
+  static disconnect () {
     return Promise.reject()
   }
 }
