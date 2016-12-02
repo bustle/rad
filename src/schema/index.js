@@ -1,3 +1,4 @@
+import Node from '../node'
 import NodeType from '../node-type'
 import EdgeType from '../edge-type'
 
@@ -9,7 +10,9 @@ export default class Schema {
   }
 
   get graph () { return this._graph }
-  get nodeTypes () { return this._nodeTypes }
+  get nodes () { return this._nodes }
+  get edges () { return this._edges }
+  get nodeTypes () { return this._edgeTypes }
   get edgeTypes () { return this._edgeTypes }
 
   node (label, definition = () => {}) {
@@ -20,9 +23,9 @@ export default class Schema {
     return nodeType
   }
 
-  edge (fromType, toType, label) {
+  edge (from, to, label) {
     const graph = this.graph
-    const edgeType = new EdgeType(graph, fromType, toType, label)
+    const edgeType = new EdgeType(graph, from, to, label)
     this.edgeTypes[edgeType.label] = edgeType
     return edgeType
   }

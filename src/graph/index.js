@@ -12,6 +12,8 @@ export default class Graph {
 
   get name () { return this._name }
   get adapter () { return this._adapter }
+  get nodes () { return this._schema.nodes }
+  get edges () { return this._schema.edges }
   get nodeTypes () { return this._schema.nodeTypes }
   get edgeTypes () { return this._schema.edgeTypes }
 
@@ -23,21 +25,8 @@ export default class Graph {
     return this._schema.node(name, definition)
   }
 
-  defineEdge (fromType, toType, label) {
-    return this._schema.edge(fromType, toType, label)
+  defineEdge (from, to, label) {
+    return this._schema.edge(from, to, label)
   }
 }
 
-// const graph = new Graph('Bustle')
-//
-// graph.schema(define => {
-//
-//   define.node('User', user => {
-//     user.hasOne('Post')
-//   })
-//
-//   define.node('Post', post => {
-//     post.hasOne('User')
-//   })
-//
-// })

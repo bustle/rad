@@ -1,5 +1,5 @@
 export default class Edge {
-  constructor ({ type }) {
+  constructor (type) {
     this._type = type
   }
 

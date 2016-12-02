@@ -36,7 +36,37 @@ describe('Node', () => {
     })
   })
 
-  describe('operations', () => {
+  describe('static operations', () => {
+    describe('#get', () => {
+      it('returns a promise', () => {
+        expect(Node.get()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('#create', () => {
+      it('returns a promise', () => {
+        const {node} = context
+        expect(Node.create()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('#all', () => {
+      it('returns a promise', () => {
+        const {node} = context
+        expect(Node.all()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('#count', () => {
+      it('returns a promise', () => {
+        const {node} = context
+        expect(Node.count()).to.be.an.instanceof(Promise)
+      })
+    })
+  })
+
+  describe('instance operations', () => {
+
     describe('.save', () => {
       it('returns a promise', () => {
         const {node} = context
@@ -44,45 +74,10 @@ describe('Node', () => {
       })
     })
 
-    describe('.create', () => {
-      it('returns a promise', () => {
-        const {node} = context
-        expect(node.create()).to.be.an.instanceof(Promise)
-      })
-    })
-
     describe('.update', () => {
       it('returns a promise', () => {
         const {node} = context
         expect(node.update()).to.be.an.instanceof(Promise)
-      })
-    })
-
-    describe('.put', () => {
-      it('returns a promise', () => {
-        const {node} = context
-        expect(node.put()).to.be.an.instanceof(Promise)
-      })
-    })
-
-    describe('.get', () => {
-      it('returns a promise', () => {
-        const {node} = context
-        expect(node.get()).to.be.an.instanceof(Promise)
-      })
-    })
-
-    describe('.all', () => {
-      it('returns a promise', () => {
-        const {node} = context
-        expect(node.all()).to.be.an.instanceof(Promise)
-      })
-    })
-
-    describe('.count', () => {
-      it('returns a promise', () => {
-        const {node} = context
-        expect(node.count()).to.be.an.instanceof(Promise)
       })
     })
 

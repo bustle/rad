@@ -1,6 +1,6 @@
 import { AdapterBase, NodeDelegate, EdgeDelegate } from '../../adapter'
 
-const GUID = 0
+let GUID = 0
 const NODES = {}
 const EDGES = {}
 
@@ -11,17 +11,10 @@ export default class MemoryAdapter extends AdapterBase {
 }
 
 class MemoryNodeDelegate extends NodeDelegate {
-  static async save (node) {
-    return node.isSaved ? this.update(node) : this.create(node)
-  }
 
+  // Adapter Static
   static async create (node) {
     node.id = GUID++
-    NODES[node.id] = node
-    return node
-  }
-
-  static async update (node) {
     NODES[node.id] = node
     return node
   }
@@ -31,15 +24,26 @@ class MemoryNodeDelegate extends NodeDelegate {
   }
 
   static async all () {
-    return NODES
+    const ids = Object.keys(NODES)
+    return ids.map(id => NODES[id])
   }
 
   static async count () {
-    return NODES.length
+    return Object.keys(NODES).length
   }
 
-  static async destroy (id) {
-    const node = await this.get(id)
+
+  // Adapter Instance
+  static async save (node) {
+    return node.isSaved ? this.update(node) : this.create(node)
+  }
+
+  static async update (node) {
+    NODES[node.id] = node
+    return node
+  }
+
+  static async destroy (node) {
     delete NODES[node.id]
     return node
   }

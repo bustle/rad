@@ -14,6 +14,17 @@ describe('NodeType', () => {
       const {nodeType, label} = context
       expect(nodeType.label).to.equal(label)
     })
+
+    it('creates has a base Node class', () => {
+      const {nodeType} = context
+      expect(nodeType.Base).not.to.be.null
+    })
+
+    it('sets the base Node type', () => {
+      const {label,nodeType} = context
+      expect(nodeType.Base.type).to.equal(nodeType)
+      expect(nodeType.Base.typeLabel).to.equal(label)
+    })
   })
 
   it('.manyToMany')
@@ -30,6 +41,12 @@ describe('NodeType', () => {
     it('returns an EdgeType', () => {
       const {nodeType, edgeType} = context
       expect(edgeType).to.be.an.instanceof(EdgeType)
+    })
+
+    it('defines properties on base class', () => {
+      const {nodeType} = context
+      const BasePrototype = nodeType.Base.prototype
+      expect(BasePrototype).to.have.ownProperty('thing')
     })
   })
 })

@@ -14,8 +14,8 @@ export default class {
     return this.adapter.node.create(...arguments)
   }
 
-  static find () {
-    return this.adapter.node.find(...arguments)
+  static get () {
+    return this.adapter.node.get(...arguments)
   }
 
   static save () {

@@ -11,4 +11,3 @@ export default class EdgeType {
   get to () { return this.graph.nodeTypes[this._toType] }
   get label () { return this._label }
 }
-
