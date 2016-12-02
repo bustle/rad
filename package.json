@@ -40,5 +40,8 @@
     "compile": "babel -d lib/ src/",
     "lint": "standard",
     "prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6"
   }
 }
