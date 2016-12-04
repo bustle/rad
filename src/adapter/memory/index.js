@@ -50,5 +50,20 @@ class MemoryNodeDelegate extends NodeDelegate {
 }
 
 class MemoryEdgeDelegate extends EdgeDelegate {
+  // Adapter Static
+  static async get (id) {
+    return EDGES[id]
+  }
 
+  static async range (start, end) {
+    const ids = Object.keys(EDGES)
+    const range = ids.slice(start, end)
+    return range.map(id => EDGES[id])
+  }
+
+  static async count () { return this.adapter.edge.count(this) }
+
+  // Adapter Instance
+  static async connect () { return this.adapter.edge.connect(this) }
+  static async disconnect (from, to) { return this.adapter.edge.destroy(this) }
 }

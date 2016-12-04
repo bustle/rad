@@ -20,10 +20,10 @@ describe('NodeType', () => {
       expect(nodeType.Base).not.to.be.null
     })
 
-    it('sets the base Node type', () => {
+    it('sets the base Node type and label', () => {
       const {label,nodeType} = context
       expect(nodeType.Base.type).to.equal(nodeType)
-      expect(nodeType.Base.typeLabel).to.equal(label)
+      expect(nodeType.Base.label).to.equal(label)
     })
   })
 

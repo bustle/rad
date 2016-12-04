@@ -25,6 +25,6 @@ export class EdgeDelegate {
   static async get (edge) {}
   static async range (edge) {}
   static async count (edge) {}
-  static async set (edge) {}
-  static async destroy (edge) {}
+  static async connect() {}
+  static async disconnect() {}
 }

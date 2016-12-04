@@ -10,18 +10,27 @@ describe('MemoryAdapter', () => {
     graph.schema(define => {
       define.node('Post')
       define.node('User')
+
+      define.node('Alpha', node => {
+        node.hasOne('Beta')
+      })
+
+      define.node('Beta', node => {
+        node.hasOne('Alpha')
+      })
     })
     const Post = graph.nodeTypes['Post'].Base
-    const post = new Post()
-    context = {adapter, graph, Post, post}
+    const Alpha = graph.nodeTypes['Post'].Base
+    const Beta = graph.nodeTypes['Post'].Base
+    context = {adapter, graph, Post}
   })
 
   describe('Node operations', () => {
 
     describe('#get', () => {
       it('is found in the store', async () => {
-        const {Post, post} = context
-        await post.save()
+        const {Post} = context
+        const post = await Post.create({ title: '#get' })
         const got = await Post.get(post.id)
         expect(got).to.equal(post)
       })
@@ -31,8 +40,7 @@ describe('MemoryAdapter', () => {
       it('stores the node', async () => {
         const {Post} = context
         const post = await Post.create({ title: 'Title' })
-        const got = await Post.get(post.id)
-        expect(got).to.equal(post)
+        expect(post.id).to.be.a.number
       })
     })
 
@@ -60,7 +68,8 @@ describe('MemoryAdapter', () => {
 
     describe('.save', () => {
       it('saves and can be found in the store', async () => {
-        const {Post, post} = context
+        const {Post} = context
+        const post = new Post({title: '.save'})
         expect(post.id).to.be.null
         await post.save()
         expect(post.id).not.to.be.null
@@ -71,8 +80,8 @@ describe('MemoryAdapter', () => {
 
     describe('.update', () => {
       it('updates an already saved node', async () => {
-        const {Post, post} = context
-        await post.save()
+        const {Post} = context
+        const post = await Post.create({title: '.update'})
         post.attributes.title = 'Title'
         await post.update()
         const got = await Post.get(post.id)
@@ -84,10 +93,20 @@ describe('MemoryAdapter', () => {
   describe('.destroy', () => {
     it('removes the node from the store', async () => {
       const {Post} = context
-      const post = await Post.create({title: 'Destroy!'})
+      const post = await Post.create({title: '.destroy'})
       await post.destroy()
       const got = await Post.get(post.id)
       expect(got).to.be.undefined
+    })
+  })
+
+  describe('Edge operations', () => {
+    describe('.connect', () => {
+      it('connects two nodes')
+    })
+
+    describe('.disconnect', () => {
+      it('disconnects two nodes')
     })
   })
 })

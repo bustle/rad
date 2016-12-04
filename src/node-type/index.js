@@ -8,7 +8,7 @@ function defineBase (type) {
     }
 
     static get type () { return type }
-    static get typeLabel () { return type.label }
+    static get label () { return type.label }
   }
   return Base
 }
@@ -35,6 +35,9 @@ export default class NodeType {
     Object.defineProperty(Base.prototype, propName, {
       get: async function () {
         const edge = await Edge.get()
+      },
+      set: async function (val) {
+        console.log('setter')
       }
     })
 

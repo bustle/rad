@@ -9,21 +9,23 @@ const graph = new Graph('Bustle')
 
 graph.schema(define => {
   define.node('User', node => {
-    node.hasMany('Post')
-    node.hasMany('User', { as: 'Friend' })
+    node.hasOne('Post')
   })
   define.node('Post', node => {
     node.hasOne('User')
   })
 })
 
-const User = graph.nodeTypes['User']
-const tyler = await user.create({ name: 'Tyler' })
-const steve = await user.create({ name: 'Steve' })
-const zahra = await user.create({ name: 'Zahra' })
-tyler.friends // => []
-tyler.friends.push(steve, zahra) 
-tyler.friends // => [User, User]
+const UserType = graph.nodeTypes['User']
+const PostType = graph.nodeTypes['User']
+
+const User = User.Base
+const Post = Post.Base
+
+const tyler = await User.create({ name: 'Tyler' })
+const post = await Post.create({ title: 'My Post' })
+
+tyler.post = post
 
 ```
 

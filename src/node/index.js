@@ -7,7 +7,14 @@ export default class Node {
     this._attributes = attributes
   }
 
-  static get adapter() { return this._adapter || this.type.graph.adapter }
+  static get adapter() {
+    console.log('adapter', this._adapter, this.type)
+    const {_adapter, type} = this
+    if(!_adapter && !type) {
+      this.adapter = new AdapterBase()
+    }
+    return this._adapter
+  }
   static set adapter(val) { this._adapter = val }
 
   static async get (id) { return this.adapter.node.get(id) }

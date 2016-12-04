@@ -1,0 +1,60 @@
+import Promise from 'bluebird'
+import { generateEdgeType } from './fixtures'
+import Graph from '../src/graph'
+import Edge from '../src/edge'
+
+describe('Edge', () => {
+  let context
+  beforeEach(() => {
+    const graph = new Graph('EdgeTest')
+    graph.schema(define => {
+      define.node('Has', node => {
+        node.hasOne('One')
+      })
+      define.node('One', node => {
+        node.hasOne('Has')
+      })
+    })
+    const Alpha = graph.nodeTypes['Alpha'].Base
+    const Beta = graph.nodeTypes['Beta'].Base
+    debugger
+    context = {graph, Alpha, Beta, AlphaBeta, BetaAlpha}
+  })
+
+  describe('operations', () => {
+    describe('.get', () => {
+      it('returns a promise', () => {
+        const {edge} = context
+        expect(edge.get()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('.range', () => {
+      it('returns a promise', () => {
+        const {edge} = context
+        expect(edge.range()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('.count', () => {
+      it('returns a promise', () => {
+        const {edge} = context
+        expect(edge.count()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('.set', () => {
+      it('returns a promise', () => {
+        const {edge} = context
+        expect(edge.set()).to.be.an.instanceof(Promise)
+      })
+    })
+
+    describe('.destroy', () => {
+      it('returns a promise', () => {
+        const {edge} = context
+        expect(edge.destroy()).to.be.an.instanceof(Promise)
+      })
+    })
+  })
+})
