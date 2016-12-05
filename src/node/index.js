@@ -8,9 +8,10 @@ export default class Node {
   }
 
   static get adapter() {
-    console.log('adapter', this._adapter, this.type)
     const {_adapter, type} = this
-    if(!_adapter && !type) {
+    if(!_adapter && type) {
+      this.adapter = type.graph.adapter
+    } else if (!_adapter && !type) {
       this.adapter = new AdapterBase()
     }
     return this._adapter
@@ -20,6 +21,7 @@ export default class Node {
   static async get (id) { return this.adapter.node.get(id) }
   static async create (attributes) {
     const node = new this(attributes)
+    if(!this.adapter) {debugger }
     return this.adapter.node.create(node)
   }
   static async all () { return this.adapter.node.all() }

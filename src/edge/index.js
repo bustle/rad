@@ -6,7 +6,15 @@ export default class Edge {
     this._to = to
   }
 
-  static get adapter() { return this._adapter || this.type.graph.adapter }
+  static get adapter() {
+    const {_adapter, type} = this
+    if(!_adapter && type) {
+      this.adapter = type.graph.adapter
+    } else if (!_adapter && !type) {
+      this.adapter = new AdapterBase()
+    }
+    return this._adapter
+  }
   static set adapter(val) { this._adapter = val }
 
   static async get (id) { return this.adapter.edge.get(id) }
@@ -14,6 +22,7 @@ export default class Edge {
   static async get (id) { return this.adapter.edge.get(id) }
   static async count () { return this.adapter.edge.count(this) }
 
+  get id() { return this._id }
   get type () { return this._type }
   get adapter () { return this.type.graph.adapter }
   get from () { return this._from }

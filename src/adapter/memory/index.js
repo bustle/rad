@@ -1,8 +1,7 @@
 import { AdapterBase, NodeDelegate, EdgeDelegate } from '../../adapter'
 
 let GUID = 0
-const NODES = {}
-const EDGES = {}
+const STORE = {}
 
 export default class MemoryAdapter extends AdapterBase {
   constructor () {
@@ -15,21 +14,21 @@ class MemoryNodeDelegate extends NodeDelegate {
   // Adapter Static
   static async create (node) {
     node.id = GUID++
-    NODES[node.id] = node
+    STORE[node.id] = node
     return node
   }
 
   static async get (id) {
-    return NODES[id]
+    return STORE[id]
   }
 
   static async all () {
-    const ids = Object.keys(NODES)
-    return ids.map(id => NODES[id])
+    const ids = Object.keys(STORE)
+    return ids.map(id => STORE[id])
   }
 
   static async count () {
-    return Object.keys(NODES).length
+    return Object.keys(STORE).length
   }
 
 
@@ -39,12 +38,12 @@ class MemoryNodeDelegate extends NodeDelegate {
   }
 
   static async update (node) {
-    NODES[node.id] = node
+    STORE[node.id] = node
     return node
   }
 
   static async destroy (node) {
-    delete NODES[node.id]
+    delete STORE[node.id]
     return node
   }
 }
@@ -52,18 +51,27 @@ class MemoryNodeDelegate extends NodeDelegate {
 class MemoryEdgeDelegate extends EdgeDelegate {
   // Adapter Static
   static async get (id) {
-    return EDGES[id]
+    return STORE[id] || null
   }
 
   static async range (start, end) {
-    const ids = Object.keys(EDGES)
+    const ids = Object.keys(STORE)
     const range = ids.slice(start, end)
-    return range.map(id => EDGES[id])
+    return range.map(id => STORE[id])
   }
 
-  static async count () { return this.adapter.edge.count(this) }
+  static async count () {
+    return Object.keys(STORE).length
+  }
 
   // Adapter Instance
-  static async connect () { return this.adapter.edge.connect(this) }
-  static async disconnect (from, to) { return this.adapter.edge.destroy(this) }
+  static async connect (edge) {
+    edge.id = GUID++
+    STORE[edge.id] = edge
+    return edge
+  }
+  static async disconnect (edge) {
+    delete STORE[edge.id]
+    return edge
+  }
 }

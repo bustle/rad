@@ -20,9 +20,9 @@ describe('MemoryAdapter', () => {
       })
     })
     const Post = graph.nodeTypes['Post'].Base
-    const Alpha = graph.nodeTypes['Post'].Base
-    const Beta = graph.nodeTypes['Post'].Base
-    context = {adapter, graph, Post}
+    const Alpha = graph.nodeTypes['Alpha'].Base
+    const Beta = graph.nodeTypes['Beta'].Base
+    context = {adapter, graph, Post, Alpha, Beta}
   })
 
   describe('Node operations', () => {
@@ -101,12 +101,41 @@ describe('MemoryAdapter', () => {
   })
 
   describe('Edge operations', () => {
+    beforeEach(async () => {
+      const {graph, Alpha, Beta} = context
+      const AlphaBeta = graph.edgeTypes['AlphaBeta'].Base
+      const BetaAlpha = graph.edgeTypes['BetaAlpha'].Base
+      const alpha = await Alpha.create({ test: 'edge connect alpha' })
+      const beta = await Beta.create({ test: 'edge connect beta' })
+      const edge = new AlphaBeta(alpha, beta)
+      context.alpha = alpha
+      context.beta = beta
+      context.edge = edge
+      context.AlphaBeta = AlphaBeta
+    })
+
+    describe('#get', () => {
+      it('gets an edge')
+    })
+
     describe('.connect', () => {
-      it('connects two nodes')
+      it('connects two nodes', async () => {
+        const {edge, AlphaBeta} = context
+        await edge.connect()
+        expect(edge.id).not.to.be.null
+        const got = await AlphaBeta.get(edge.id)
+        expect(got).to.equal(edge)
+      })
     })
 
     describe('.disconnect', () => {
-      it('disconnects two nodes')
+      it('disconnects two nodes', async () => {
+        const {edge, AlphaBeta} = context
+        await edge.connect()
+        await edge.disconnect()
+        const got = await AlphaBeta.get(edge.id)
+        expect(got).to.be.null
+      })
     })
   })
 })
