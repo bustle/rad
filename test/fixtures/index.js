@@ -12,7 +12,7 @@ export function generateNodeType ({graph = generateGraph(), name = NODE_TYPE_NAM
   return graph.defineNode(name)
 }
 
-export function generateEdgeType ({fromType = 'Post', toType = 'User', label = EDGE_TYPE_LABEL} = {}) {
+export function generateEdgeType ({fromType = 'Alpha', toType = 'Beta', label = EDGE_TYPE_LABEL} = {}) {
   const graph = generateGraph({name: GRAPH_NAME})
   graph.schema(define => {
     define.node(fromType)

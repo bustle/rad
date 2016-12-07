@@ -1,41 +1,35 @@
-import { AdapterBase } from '../adapter'
+export function defineNode(type) {
+  const {graph, label} = type
+  const {adapter} = graph
+  const {node: delegate} = adapter
+  const Base = class {
+    static get type () { return type }
+    static get label () { return label }
+    static get adapter() { return adapter }
 
-export default class Node {
-  constructor (type, attributes={}) {
-    this._id = null
-    this._type = type
-    this._attributes = attributes
-  }
+    static async get (id) { return delegate.get(type, id) }
+    static async create (attributes) { return delegate.create(type, attributes) }
+    static async all () { return delegate.all(type) }
+    static async count () { return delegate.count(type) }
 
-  static get adapter() {
-    const {_adapter, type} = this
-    if(!_adapter && type) {
-      this.adapter = type.graph.adapter
-    } else if (!_adapter && !type) {
-      this.adapter = new AdapterBase()
+    constructor (attributes={}) {
+      this._id = null
+      this._attributes = attributes
     }
-    return this._adapter
+
+    get id () { return this._id }
+    get isSaved () { return !!this._id }
+    get type () { return type }
+    get label () { return type.label }
+    get attributes () { return this._attributes }
+    get adapter () { return adapter }
+
+    set id (val) { return this._id = val }
+
+    async save () { return delegate.save(this) }
+    async update () { return delegate.update(this) }
+    async destroy () { return delegate.destroy(this) }
   }
-  static set adapter(val) { this._adapter = val }
-
-  static async get (id) { return this.adapter.node.get(this.type, id) }
-  static async create (attributes) {
-    return this.adapter.node.create(this.type, attributes)
-  }
-  static async all () { return this.adapter.node.all(this.type, this) }
-  static async count () { return this.adapter.node.count(this.type) }
-
-  get id () { return this._id }
-  get isSaved () { return !!this._id }
-  get type () { return this._type }
-  get label () { return this.type.label }
-  get attributes () { return this._attributes }
-  get adapter () { return this.type.graph.adapter }
-
-  set id (val) { return this._id = val }
-
-  async save () { return this.adapter.node.save(this) }
-  async update () { return this.adapter.node.update(this) }
-  async destroy () { return this.adapter.node.destroy(this) }
+  return Base
 }
 

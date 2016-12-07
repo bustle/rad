@@ -1,34 +1,29 @@
 import Promise from 'bluebird'
-import { generateEdgeType } from './fixtures'
+import { generateEdgeType, generateNodeType } from './fixtures'
 import Graph from '../src/graph'
-import Edge from '../src/edge'
+import { defineEdge } from '../src/edge'
+import { defineNode } from '../src/node'
 
 describe('Edge', () => {
   let context
   beforeEach(async () => {
-    const graph = new Graph('EdgeTest')
-    graph.schema(define => {
-      define.node('Alpha', node => {
-        node.hasOne('Beta')
-      })
-      define.node('Beta', node => {
-        node.hasOne('Alpha')
-      })
-    })
-    const AlphaNode = graph.nodeTypes['Alpha'].Base
-    const BetaNode = graph.nodeTypes['Beta'].Base
-    const alpha = await AlphaNode.create({ name: 'Alpha' })
-    const beta = await AlphaNode.create({ name: 'Beta' })
-    const AlphaBetaEdge = graph.edgeTypes['AlphaBeta'].Base
-    const BetaAlphaEdge = graph.edgeTypes['BetaAlpha'].Base
+    const alphaNodeType = generateNodeType({name: 'Alpha'})
+    const betaNodeType = generateNodeType({name: 'Beta'})
+    const Alpha = defineNode(alphaNodeType)
+    const Beta = defineNode(betaNodeType)
+    const alpha = await Alpha.create({ name: 'Alpha' })
+    const beta = await Beta.create({ name: 'Beta' })
+    const type = generateEdgeType({ from: 'Alpha', to: 'Beta' })
+    const AlphaBetaEdge = defineEdge(type)
+    const edge = new AlphaBetaEdge(alpha, beta)
     context = {
-      graph,
-      AlphaNode,
-      BetaNode,
+      Alpha,
+      Beta,
+      type,
+      AlphaBetaEdge,
       alpha,
       beta,
-      AlphaBetaEdge,
-      BetaAlphaEdge
+      edge
     }
   })
 

@@ -1,23 +1,11 @@
-import Node from '../node'
+import { defineNode } from '../node'
 import Edge from '../edge'
-
-function defineBase (type) {
-  const Base = class extends Node {
-    constructor(attributes={}) {
-      super(type, attributes)
-    }
-
-    static get type () { return type }
-    static get label () { return type.label }
-  }
-  return Base
-}
 
 export default class NodeType {
   constructor (graph, label) {
     this._graph = graph
     this._label = label
-    this._Base = defineBase(this)
+    this._Base = defineNode(this)
   }
 
   get graph () { return this._graph }

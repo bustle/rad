@@ -1,4 +1,4 @@
-import Edge from '../edge'
+import { defineEdge } from '../edge'
 
 function defineBase (type) {
   const Base = class extends Edge {
@@ -18,7 +18,7 @@ export default class EdgeType {
     this._fromType = fromType
     this._toType = toType
     this._label = label
-    this.Base = defineBase (this)
+    this.Base = defineEdge (this)
   }
 
   get graph () { return this._graph }

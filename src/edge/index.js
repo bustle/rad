@@ -1,35 +1,32 @@
-export default class Edge {
-  constructor (type, from, to) {
-    this._id = null
-    this._type = type
-    this._from = from
-    this._to = to
-  }
+export function defineEdge(type) {
+  const {graph, label} = type
+  const {adapter} = graph
+  const {edge: delegate} = adapter
+  const Base = class {
+    static get type () { return type }
+    static get label () { return label }
+    static get adapter() { return adapter }
 
-  static get adapter() {
-    const {_adapter, type} = this
-    if(!_adapter && type) {
-      this.adapter = type.graph.adapter
-    } else if (!_adapter && !type) {
-      this.adapter = new AdapterBase()
+    static async get (id) { return delegate.get(type, id) }
+    static async range () { return delegate.range(type) }
+    static async get (id) { return delegate.get(type, id) }
+    static async count () { return delegate.count(type) }
+
+    constructor(from, to) {
+      this._from = from
+      this._to = to
     }
-    return this._adapter
+
+    get id() { return this._id }
+    get type () { return type }
+    get adapter () { return adapter }
+    get from () { return this._from }
+    get to () { return this._to }
+
+    set id (val) { return this._id = val }
+
+    async connect () { return delegate.connect(this) }
+    async disconnect () { return delegate.disconnect(this) }
   }
-  static set adapter(val) { this._adapter = val }
-
-  static async get (id) { return this.adapter.edge.get(this.type, id) }
-  static async range () { return this.adapter.edge.range(this.type) }
-  static async get (id) { return this.adapter.edge.get(this.type, id) }
-  static async count () { return this.adapter.edge.count(this.type) }
-
-  get id() { return this._id }
-  get type () { return this._type }
-  get adapter () { return this.type.graph.adapter }
-  get from () { return this._from }
-  get to () { return this._to }
-
-  set id (val) { return this._id = val }
-
-  async connect () { return this.adapter.edge.connect(this) }
-  async disconnect () { return this.adapter.edge.disconnect(this) }
+  return Base
 }
