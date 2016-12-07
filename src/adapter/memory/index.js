@@ -69,8 +69,12 @@ class MemoryNodeDelegate extends NodeDelegate {
 
   async destroy (node) {
     const {NODES, NODE_INDEXES} = this._adapter.STORE
-    delete NODES[node.id]
-    NODE_INDEXES[node.label] = NODE_INDEXES[node.label].filter(id => id === node.id)
+    const {id, label} = node
+    const index = NODE_INDEXES[label]
+    delete NODES[id]
+    if(index) {
+      NODE_INDEXES[label] = index.filter(i => i === id)
+    }
     return node
   }
 }

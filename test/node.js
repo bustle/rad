@@ -6,7 +6,7 @@ describe('Node', () => {
   let context
   beforeEach(() => {
     context = {}
-    const type = generateNodeType()
+    const type = generateNodeType({name: 'PersonTestType'})
     const attributes = {
       name: 'Tyler Love',
       age: 30

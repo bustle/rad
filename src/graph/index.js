@@ -1,10 +1,10 @@
 import Schema from '../schema'
 import NodeType from '../node-type'
 import EdgeType from '../edge-type'
-import { AdapterBase } from '../adapter'
+import MemoryAdapter from '../adapter/memory'
 
 export default class Graph {
-  constructor (name, { schema = new Schema(this), adapter = new AdapterBase() } = {}) {
+  constructor (name, { schema = new Schema(this), adapter = new MemoryAdapter() } = {}) {
     this._name = name
     this._schema = schema
     this._adapter = adapter
