@@ -19,8 +19,8 @@ graph.schema(define => {
 const UserType = graph.nodeTypes['User']
 const PostType = graph.nodeTypes['User']
 
-const User = User.Base
-const Post = Post.Base
+const User = UserType.Model
+const Post = PostType.Model
 
 const tyler = await User.create({ name: 'Tyler' })
 const post = await Post.create({ title: 'My Post' })
