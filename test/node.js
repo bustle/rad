@@ -21,19 +21,6 @@ describe('Node', () => {
       expect(node.type).to.equal(type)
       expect(node.attributes).to.equal(attributes)
     })
-
-    describe('.isSaved', () => {
-      it('is false before a save', () => {
-        const {node} = context
-        expect(node.isSaved).to.be.false
-      })
-
-      it('is true after save', () => {
-        const {node} = context
-        node.save()
-        expect(node.isSaved).to.be.false
-      })
-    })
   })
 
   describe('static operations', () => {

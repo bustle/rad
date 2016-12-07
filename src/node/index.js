@@ -18,19 +18,17 @@ export default class Node {
   }
   static set adapter(val) { this._adapter = val }
 
-  static async get (id) { return this.adapter.node.get(id) }
+  static async get (id) { return this.adapter.node.get(this.type, id) }
   static async create (attributes) {
-    const node = new this(attributes)
-    if(!this.adapter) {debugger }
-    return this.adapter.node.create(node)
+    return this.adapter.node.create(this.type, attributes)
   }
-  static async all () { return this.adapter.node.all() }
-  static async count () { return this.adapter.node.count(this) }
+  static async all () { return this.adapter.node.all(this.type, this) }
+  static async count () { return this.adapter.node.count(this.type) }
 
   get id () { return this._id }
   get isSaved () { return !!this._id }
   get type () { return this._type }
-  get typeLabel () { return this.type.label }
+  get label () { return this.type.label }
   get attributes () { return this._attributes }
   get adapter () { return this.type.graph.adapter }
 

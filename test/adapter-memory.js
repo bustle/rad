@@ -45,24 +45,37 @@ describe('MemoryAdapter', () => {
     })
 
     describe('#all', () => {
-      it('finds all the nodes', async () => {
-        const {Post} = context
+      it('only contains created nodes', async () => {
+        const {Post, Alpha} = context
         const posts = [
           await Post.create({title: 'a'}),
           await Post.create({title: 'b'}),
           await Post.create({title: 'c'})
         ]
+        const alphas = [
+          await Alpha.create({title: 'a'}),
+          await Alpha.create({title: 'b'}),
+          await Alpha.create({title: 'c'})
+        ]
         const got = await Post.all()
         posts.forEach(post => expect(got).to.include(post))
+        got.forEach(post => expect(posts).to.include(post))
       })
     })
 
     describe('#count', () => {
-      it('returns a number', async () => {
-        const {Post} = context
-        await Post.create({title: 'a'})
-        const count = await Post.count()
-        expect(count).to.be.at.least(1)
+      it('has correct count', async () => {
+        const {Post,Alpha} = context
+        const post = await Post.create({title: 'one'})
+        await Post.create({title: 'two'})
+        const alpha = await Alpha.create({title: 'two'})
+        await Alpha.create({title: 'two'})
+        expect(await Post.count()).to.equal(2)
+        expect(await Alpha.count()).to.equal(2)
+        await post.destroy()
+        await alpha.destroy()
+        expect(await Post.count()).to.equal(1)
+        expect(await Alpha.count()).to.equal(1)
       })
     })
 
@@ -88,15 +101,15 @@ describe('MemoryAdapter', () => {
         expect(got.attributes).to.equal(post.attributes)
       })
     })
-  })
 
-  describe('.destroy', () => {
-    it('removes the node from the store', async () => {
-      const {Post} = context
-      const post = await Post.create({title: '.destroy'})
-      await post.destroy()
-      const got = await Post.get(post.id)
-      expect(got).to.be.undefined
+    describe('.destroy', () => {
+      it('removes the node from the store', async () => {
+        const {Post} = context
+        const post = await Post.create({title: '.destroy'})
+        await post.destroy()
+        const got = await Post.get(post.id)
+        expect(got).to.be.null
+      })
     })
   })
 
@@ -108,14 +121,17 @@ describe('MemoryAdapter', () => {
       const alpha = await Alpha.create({ test: 'edge connect alpha' })
       const beta = await Beta.create({ test: 'edge connect beta' })
       const edge = new AlphaBeta(alpha, beta)
-      context.alpha = alpha
-      context.beta = beta
       context.edge = edge
       context.AlphaBeta = AlphaBeta
     })
 
     describe('#get', () => {
-      it('gets an edge')
+      it('gets an edge', async () => {
+        const {edge, AlphaBeta} = context
+        await edge.connect()
+        const got = AlphaBeta.get(edge.id)
+        expect(got).not.to.be.null
+      })
     })
 
     describe('.connect', () => {

@@ -17,10 +17,10 @@ export default class Edge {
   }
   static set adapter(val) { this._adapter = val }
 
-  static async get (id) { return this.adapter.edge.get(id) }
-  static async range () { return this.adapter.edge.range(this) }
-  static async get (id) { return this.adapter.edge.get(id) }
-  static async count () { return this.adapter.edge.count(this) }
+  static async get (id) { return this.adapter.edge.get(this.type, id) }
+  static async range () { return this.adapter.edge.range(this.type) }
+  static async get (id) { return this.adapter.edge.get(this.type, id) }
+  static async count () { return this.adapter.edge.count(this.type) }
 
   get id() { return this._id }
   get type () { return this._type }
